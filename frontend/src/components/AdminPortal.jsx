@@ -73,6 +73,38 @@ export default function AdminPortal({ isOpen, onClose, onProfileUpdated, current
     }
   }, [isOpen, token]);
 
+  useEffect(() => {
+    const handleNewMessage = (e) => {
+      if (e.detail) {
+        setMessages(prev => [e.detail, ...prev.filter(m => m.id !== e.detail.id)]);
+        showToast(`📬 New inquiry received from ${e.detail.name}!`);
+      }
+    };
+    window.addEventListener('portfolio_new_message', handleNewMessage);
+    return () => window.removeEventListener('portfolio_new_message', handleNewMessage);
+  }, []);
+
+  const handleAddSampleMessage = () => {
+    const sample = {
+      id: 'msg_' + Date.now(),
+      name: 'Google Recruiter',
+      email: 'recruiter@google.com',
+      subject: 'Software Developer Opportunity @ Google',
+      message: 'Hi Mohamed Umar, We came across your portfolio and we are very impressed with your Smart Apply India project and AWS certifications. We would love to interview you for a Software Developer role!',
+      receivedAt: new Date().toISOString(),
+      status: 'unread'
+    };
+
+    try {
+      const local = JSON.parse(localStorage.getItem('portfolio_submitted_messages') || '[]');
+      local.unshift(sample);
+      localStorage.setItem('portfolio_submitted_messages', JSON.stringify(local));
+    } catch (e) {}
+
+    setMessages(prev => [sample, ...prev]);
+    showToast('Sample test inquiry created!');
+  };
+
   const loadAdminData = async () => {
     setLoadingData(true);
     try {
@@ -537,7 +569,14 @@ export default function AdminPortal({ isOpen, onClose, onProfileUpdated, current
                   {filteredMessages.length === 0 ? (
                     <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#64748b' }}>
                       <Inbox size={36} style={{ margin: '0 auto 0.5rem', opacity: 0.5 }} />
-                      <p>No messages found.</p>
+                      <p style={{ marginBottom: '1rem' }}>No messages received yet.</p>
+                      <button
+                        onClick={handleAddSampleMessage}
+                        className="btn btn-secondary"
+                        style={{ padding: '0.45rem 0.9rem', fontSize: '0.8rem' }}
+                      >
+                        + Create Sample Demo Inquiry
+                      </button>
                     </div>
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>

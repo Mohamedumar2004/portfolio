@@ -69,6 +69,7 @@ export default function Contact({ profile }) {
         const existing = JSON.parse(localStorage.getItem('portfolio_submitted_messages') || '[]');
         existing.unshift(newMsg);
         localStorage.setItem('portfolio_submitted_messages', JSON.stringify(existing));
+        window.dispatchEvent(new CustomEvent('portfolio_new_message', { detail: newMsg }));
       } catch (e) {
         console.warn('Could not write to localStorage:', e);
       }
