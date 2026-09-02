@@ -1,0 +1,172 @@
+{
+  "name": "Mohamed Umar F",
+  "title": "Software Developer & AI/Cloud Enthusiast",
+  "tagline": "Crafting Scalable Full-Stack Web & Mobile Applications with Intelligent Cloud Architectures",
+  "email": "mhamedumaru@gmail.com",
+  "phone": "+91 9384738230",
+  "location": "Tamil Nadu, India",
+  "linkedin": "https://www.linkedin.com/in/mohamed-umar-f",
+  "github": "https://github.com/mohamedumar",
+  "summary": "Aspiring Software Developer with expertise in full-stack application development, AI integration, and cloud technologies. Seeking a challenging Software Developer position to leverage technical skills in Java, Flutter, and cloud platforms while contributing to organizational goals and personal professional growth.",
+  "about": {
+    "paragraphs": [
+      "I am a passionate Software Developer and B.Tech graduate in Computer Science and Business Systems from Nehru Institute of Engineering and Technology (CGPA: 7.4).",
+      "I specialize in architecting intelligent full-stack applications, mobile solutions with Flutter, and integrating state-of-the-art AI platforms such as Groq API and AWS cloud services.",
+      "My hands-on experience spans building real-world AI-powered tools like 'Smart Apply India' for automated job application matching and ATS scoring, as well as enterprise data analysis during my internship at Sunteck."
+    ],
+    "stats": [
+      { "label": "B.Tech CGPA", "value": "7.4 / 10" },
+      { "label": "Projects Completed", "value": "5+" },
+      { "label": "Certifications", "value": "3+" },
+      { "label": "ATS Precision", "value": "95%" }
+    ]
+  },
+  "skills": {
+    "languages": [
+      { "name": "Java", "level": 90, "icon": "Coffee" },
+      { "name": "Python", "level": 85, "icon": "Terminal" },
+      { "name": "SQL", "level": 85, "icon": "Database" },
+      { "name": "JavaScript", "level": 80, "icon": "Code" }
+    ],
+    "web_mobile": [
+      { "name": "Flutter", "level": 92, "icon": "Smartphone" },
+      { "name": "HTML5 & CSS3", "level": 90, "icon": "Layout" },
+      { "name": "React.js", "level": 82, "icon": "Layers" },
+      { "name": "REST APIs", "level": 88, "icon": "Server" },
+      { "name": "Provider Architecture", "level": 85, "icon": "Cpu" },
+      { "name": "Syncfusion PDF", "level": 80, "icon": "FileText" }
+    ],
+    "cloud_ai": [
+      { "name": "AWS Cloud Architecting", "level": 85, "icon": "Cloud" },
+      { "name": "AWS Data Engineering", "level": 80, "icon": "CloudRain" },
+      { "name": "Groq API & LLM Integration", "level": 88, "icon": "Sparkles" },
+      { "name": "Google AI-ML", "level": 82, "icon": "Brain" }
+    ],
+    "databases_tools": [
+      { "name": "MySQL", "level": 88, "icon": "Database" },
+      { "name": "Supabase", "level": 85, "icon": "Zap" },
+      { "name": "Firebase Auth & DB", "level": 86, "icon": "Flame" },
+      { "name": "Git & GitHub", "level": 88, "icon": "GitBranch" },
+      { "name": "VS Code & Android Studio", "level": 90, "icon": "Monitor" },
+      { "name": "Power BI & Excel", "level": 82, "icon": "BarChart3" }
+    ]
+  },
+  "projects": [
+    {
+      "id": "smart-apply-india",
+      "title": "Smart Apply India - AI-Powered Job Application Assistant",
+      "featured": true,
+      "badge": "Flagship Project",
+      "description": "Developed a full-featured cross-platform mobile and web application with AI-powered job application assistance, automated resume parsing, ATS scoring engine, and keyword compatibility matching.",
+      "technologies": [
+        "Flutter",
+        "Supabase",
+        "Firebase Auth",
+        "Provider",
+        "Groq API",
+        "REST APIs",
+        "Syncfusion PDF"
+      ],
+      "highlights": [
+        "Built intelligent resume-to-job-description matching algorithm using keyword extraction and compatibility scoring.",
+        "Implemented real-time ATS score analysis and resume parsing functionality with PDF generation via Syncfusion.",
+        "Integrated high-speed Groq API with Provider-based reactive architecture for scalable resume optimization workflows.",
+        "Enabled secure user authentication and database synchronization through Firebase and Supabase."
+      ],
+      "demoType": "ats-interactive"
+    },
+    {
+      "id": "sunteck-data-analytics",
+      "title": "Enterprise Data Analytics & Insights Engine",
+      "featured": false,
+      "badge": "Internship Project",
+      "description": "Data analysis and automated reporting system created during internship at Sunteck, leveraging SQL, Python, Excel, and Power BI for actionable business intelligence.",
+      "technologies": ["Python", "SQL", "Power BI", "Excel", "Data Modeling"],
+      "highlights": [
+        "Conducted end-to-end data analysis and predictive metric reporting during the internship period.",
+        "Built interactive visual dashboards summarizing operational performance indicators.",
+        "Automated recurring data transformation routines to reduce manual reporting overhead."
+      ]
+    },
+    {
+      "id": "cloud-aws-architecture",
+      "title": "Scalable Cloud Architecture & Data Pipeline",
+      "featured": false,
+      "badge": "AWS Academy",
+      "description": "Designed resilient, scalable cloud architectures and data ingestion pipelines in AWS for high-availability workloads.",
+      "technologies": ["AWS Cloud", "Data Engineering", "Python", "REST APIs", "SQL"],
+      "highlights": [
+        "Architected secure VPC, EC2, and S3 integrated data workflows based on AWS Well-Architected Framework.",
+        "Implemented relational schemas with MySQL and optimized query response times."
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "role": "Data Analysis Intern",
+      "company": "Sunteck",
+      "location": "Kumbakonam, Tamil Nadu",
+      "period": "January 20, 2025 - February 8, 2025",
+      "type": "Internship",
+      "description": "Conducted data analysis and reporting during internship period. Extracted key trends from multi-source datasets, created structured summaries for operational teams, and utilized advanced data tooling."
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech - Computer Science and Business Systems",
+      "institution": "Nehru Institute of Engineering and Technology",
+      "location": "Coimbatore, Tamil Nadu",
+      "score": "CGPA: 7.4",
+      "period": "2022 - 2026",
+      "highlights": "Comprehensive focus on software engineering, cloud computing, enterprise business systems, and AI/ML algorithms."
+    },
+    {
+      "degree": "Higher Secondary School (HSC - 12th)",
+      "institution": "Best Matriculation Higher Secondary School",
+      "location": "Sirkali, Tamil Nadu",
+      "score": "Percentage: 59%",
+      "period": "Completed 2022",
+      "highlights": "Maths and Science curriculum with early foundations in computer science."
+    },
+    {
+      "degree": "Secondary School Leaving Certificate (SSLC - 10th)",
+      "institution": "St. Joseph Matriculation Higher Secondary School",
+      "location": "Sirkali, Tamil Nadu",
+      "score": "Percentage: 81%",
+      "period": "Completed 2020",
+      "highlights": "Distinction in Mathematics and Science."
+    }
+  ],
+  "certifications": [
+    {
+      "title": "AWS Academy Cloud Architecting",
+      "issuer": "AWS Academy (EduSkills)",
+      "badge": "AWS Certified",
+      "icon": "Cloud",
+      "description": "Mastery in designing resilient, highly scalable, and cost-effective cloud architectures on AWS."
+    },
+    {
+      "title": "AWS Academy Data Engineering",
+      "issuer": "AWS Academy (EduSkills)",
+      "badge": "AWS Data",
+      "icon": "Database",
+      "description": "Practical training in data pipelines, big data storage, transformation, and ingestion workflows."
+    },
+    {
+      "title": "Python Programming Training",
+      "issuer": "EduSkills",
+      "badge": "Python Certified",
+      "icon": "Code",
+      "description": "Advanced problem solving, OOP patterns, data structures, and script automation with Python."
+    }
+  ],
+  "workshops": [
+    {
+      "title": "Google AI-ML Workshop",
+      "institution": "Nehru Institute of Engineering and Technology",
+      "location": "Coimbatore, Tamil Nadu",
+      "date": "May 15 - 17, 2024",
+      "description": "3-day intensive hands-on workshop on machine learning models, neural networks, and Google AI tooling."
+    }
+  ]
+}
