@@ -54,6 +54,25 @@ export default function Contact({ profile }) {
 
     try {
       const response = await submitContactForm(formData);
+      
+      const newMsg = response.data || {
+        id: 'msg_' + Date.now(),
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: (formData.subject && formData.subject.trim()) || 'Portfolio Contact Inquiry',
+        message: formData.message.trim(),
+        receivedAt: new Date().toISOString(),
+        status: 'unread'
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem('portfolio_submitted_messages') || '[]');
+        existing.unshift(newMsg);
+        localStorage.setItem('portfolio_submitted_messages', JSON.stringify(existing));
+      } catch (e) {
+        console.warn('Could not write to localStorage:', e);
+      }
+
       setStatus({
         type: 'success',
         message: response.message || 'Your message has been sent successfully!'

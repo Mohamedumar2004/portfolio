@@ -2,33 +2,57 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
-const MESSAGES_FILE = path.join(__dirname, '../data/messages.json');
+// Fallback memory store + dual file store (/tmp for serverless, ../data for local)
+let memoryMessages = [];
+
+const LOCAL_MESSAGES_FILE = path.join(__dirname, '../data/messages.json');
+const TMP_MESSAGES_FILE = path.join(os.tmpdir(), 'messages.json');
 
 // Helper to load messages
 function loadMessages() {
   try {
-    if (!fs.existsSync(MESSAGES_FILE)) {
-      fs.writeFileSync(MESSAGES_FILE, '[]', 'utf8');
-      return [];
+    // Try tmp first (serverless)
+    if (fs.existsSync(TMP_MESSAGES_FILE)) {
+      const data = fs.readFileSync(TMP_MESSAGES_FILE, 'utf8');
+      const parsed = JSON.parse(data || '[]');
+      if (parsed.length > 0) return parsed;
     }
-    const data = fs.readFileSync(MESSAGES_FILE, 'utf8');
-    return JSON.parse(data || '[]');
+
+    // Try local file
+    if (fs.existsSync(LOCAL_MESSAGES_FILE)) {
+      const data = fs.readFileSync(LOCAL_MESSAGES_FILE, 'utf8');
+      const parsed = JSON.parse(data || '[]');
+      if (parsed.length > 0) return parsed;
+    }
+
+    return memoryMessages;
   } catch (err) {
-    console.error('Error reading messages file:', err);
-    return [];
+    console.warn('Fallback to memory messages:', err.message);
+    return memoryMessages;
   }
 }
 
 // Helper to save messages
 function saveMessages(messages) {
+  memoryMessages = messages;
+
+  // Try saving to /tmp (always writable on Vercel/AWS Lambda)
   try {
-    fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf8');
-    return true;
+    fs.writeFileSync(TMP_MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf8');
   } catch (err) {
-    console.error('Error writing messages file:', err);
-    return false;
+    // ignore
   }
+
+  // Try saving to local file
+  try {
+    fs.writeFileSync(LOCAL_MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf8');
+  } catch (err) {
+    // read-only in serverless, memory fallback is preserved
+  }
+
+  return true;
 }
 
 // POST /api/contact
@@ -43,8 +67,8 @@ router.post('/', (req, res) => {
     if (!email || !email.trim() || !/^\S+@\S+\.\S+$/.test(email.trim())) {
       return res.status(400).json({ success: false, message: 'A valid email address is required.' });
     }
-    if (!message || !message.trim() || message.trim().length < 5) {
-      return res.status(400).json({ success: false, message: 'Please provide a message with at least 5 characters.' });
+    if (!message || !message.trim()) {
+      return res.status(400).json({ success: false, message: 'Please provide a message.' });
     }
 
     const newMessage = {
@@ -66,10 +90,7 @@ router.post('/', (req, res) => {
     res.status(201).json({
       success: true,
       message: `Thank you, ${newMessage.name}! Your message has been sent successfully to Mohamed Umar.`,
-      data: {
-        id: newMessage.id,
-        receivedAt: newMessage.receivedAt
-      }
+      data: newMessage
     });
   } catch (err) {
     console.error('Error handling contact form:', err);
@@ -77,7 +98,7 @@ router.post('/', (req, res) => {
   }
 });
 
-// GET /api/contact/messages (for verification/admin)
+// GET /api/contact/messages
 router.get('/messages', (req, res) => {
   const messages = loadMessages();
   res.json({

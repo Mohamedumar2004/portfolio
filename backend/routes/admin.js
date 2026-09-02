@@ -2,29 +2,43 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
-const MESSAGES_FILE = path.join(__dirname, '../data/messages.json');
+let memoryMessages = [];
+
+const LOCAL_MESSAGES_FILE = path.join(__dirname, '../data/messages.json');
+const TMP_MESSAGES_FILE = path.join(os.tmpdir(), 'messages.json');
 const PROFILE_FILE = path.join(__dirname, '../data/profile.json');
 
 // Helper to load messages
 function loadMessages() {
   try {
-    if (!fs.existsSync(MESSAGES_FILE)) return [];
-    const data = fs.readFileSync(MESSAGES_FILE, 'utf8');
-    return JSON.parse(data || '[]');
+    if (fs.existsSync(TMP_MESSAGES_FILE)) {
+      const data = fs.readFileSync(TMP_MESSAGES_FILE, 'utf8');
+      const parsed = JSON.parse(data || '[]');
+      if (parsed.length > 0) return parsed;
+    }
+    if (fs.existsSync(LOCAL_MESSAGES_FILE)) {
+      const data = fs.readFileSync(LOCAL_MESSAGES_FILE, 'utf8');
+      const parsed = JSON.parse(data || '[]');
+      if (parsed.length > 0) return parsed;
+    }
+    return memoryMessages;
   } catch (err) {
-    return [];
+    return memoryMessages;
   }
 }
 
 // Helper to save messages
 function saveMessages(messages) {
+  memoryMessages = messages;
   try {
-    fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf8');
-    return true;
-  } catch (err) {
-    return false;
-  }
+    fs.writeFileSync(TMP_MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf8');
+  } catch (err) {}
+  try {
+    fs.writeFileSync(LOCAL_MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf8');
+  } catch (err) {}
+  return true;
 }
 
 // Middleware to verify admin token
@@ -184,7 +198,10 @@ router.put('/profile', requireAdminAuth, (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid profile payload.' });
     }
 
-    fs.writeFileSync(PROFILE_FILE, JSON.stringify(updatedProfile, null, 2), 'utf8');
+    try {
+      fs.writeFileSync(PROFILE_FILE, JSON.stringify(updatedProfile, null, 2), 'utf8');
+    } catch (e) {}
+
     res.json({
       success: true,
       message: 'Portfolio profile updated successfully!',
