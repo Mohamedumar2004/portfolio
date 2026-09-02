@@ -73,11 +73,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`=========================================`);
-  console.log(`🚀 Portfolio Backend running on port ${PORT}`);
-  console.log(`📡 URL: http://localhost:${PORT}`);
-  console.log(`🩺 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`=========================================`);
-});
+// Start Server locally if not required as a serverless module
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`=========================================`);
+    console.log(`🚀 Portfolio Backend running on port ${PORT}`);
+    console.log(`📡 URL: http://localhost:${PORT}`);
+    console.log(`🩺 Health check: http://localhost:${PORT}/api/health`);
+    console.log(`=========================================`);
+  });
+}
+
+module.exports = app;
